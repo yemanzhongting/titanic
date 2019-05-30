@@ -1,0 +1,1030 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+	\usepackage{fontspec, xunicode, xltxtra}
+	\setmainfont{Microsoft YaHei}
+	\usepackage{ctex}
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{titanic}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{c+c1}{\PYZsh{}泰坦尼克预测}
+          
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+              
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./input}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}展示输入文件}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['train.csv']
+
+    \end{Verbatim}
+
+    \subsection{输入想要的文件，trian.csv}\label{ux8f93ux5165ux60f3ux8981ux7684ux6587ux4ef6trian.csv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+          
+          \PY{c+c1}{\PYZsh{}导入机器学习包}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{titanic} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./input/train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{titanic}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} PassengerId	旅客ID，这条数据应该没啥用}
+          \PY{c+c1}{\PYZsh{} Survived：是否活下来了 1:yes  0:no}
+          \PY{c+c1}{\PYZsh{} Pclass 旅客等级 1 2 3 分别代表不同的等级	 }
+          \PY{c+c1}{\PYZsh{} Name	名字 }
+          \PY{c+c1}{\PYZsh{} Sex	 性别	 }
+          \PY{c+c1}{\PYZsh{} Age	 年龄	 }
+          \PY{c+c1}{\PYZsh{} SibSp	有多少兄弟姐妹/配偶同船}
+          \PY{c+c1}{\PYZsh{} Parch	有多少父母/子女同船}
+          \PY{c+c1}{\PYZsh{} Ticket	船票号码，无用数据}
+          \PY{c+c1}{\PYZsh{} Fare	 船票收费	 }
+          \PY{c+c1}{\PYZsh{} Cabin	 所在小屋	 }
+          \PY{c+c1}{\PYZsh{} Embarked	登船城市C Q S 分别代表不同的城市}
+          \PY{c+c1}{\PYZsh{} \PYZsh{}数据展开}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}276}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+          0            1         0       3   
+          1            2         1       1   
+          2            3         1       3   
+          3            4         1       1   
+          4            5         0       3   
+          
+                                                          Name     Sex   Age  SibSp  \textbackslash{}
+          0                            Braund, Mr. Owen Harris    male  22.0      1   
+          1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+          2                             Heikkinen, Miss. Laina  female  26.0      0   
+          3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+          4                           Allen, Mr. William Henry    male  35.0      0   
+          
+             Parch            Ticket     Fare Cabin Embarked  
+          0      0         A/5 21171   7.2500   NaN        S  
+          1      0          PC 17599  71.2833   C85        C  
+          2      0  STON/O2. 3101282   7.9250   NaN        S  
+          3      0            113803  53.1000  C123        S  
+          4      0            373450   8.0500   NaN        S  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}277}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}277}]:} pandas.core.frame.DataFrame
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}278}]:} \PY{n}{titanic}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}不同等级旅客生还概率}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}278}]:}    Pclass  Survived
+          0       1  0.629630
+          1       2  0.472826
+          2       3  0.242363
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{n}{titanic}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sex}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}不同性别旅客生还概率，女性高于男性}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}279}]:}       Sex  Survived
+          0  female  0.742038
+          1    male  0.188908
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:}     \PY{c+c1}{\PYZsh{}填补age缺失}
+          
+          \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}乘客年龄均值}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}281}]:} 29.69911764705882
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{titanic}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}训练集文件信息，891个数据}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+PassengerId    891 non-null int64
+Survived       891 non-null int64
+Pclass         891 non-null int64
+Name           891 non-null object
+Sex            891 non-null object
+Age            891 non-null float64
+SibSp          891 non-null int64
+Parch          891 non-null int64
+Ticket         891 non-null object
+Fare           891 non-null float64
+Cabin          204 non-null object
+Embarked       889 non-null object
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.6+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}283}]:} \PY{n}{y} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{y}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}设置分类指标}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}283}]:} 0    0
+          1    1
+          2    1
+          3    1
+          4    0
+          Name: Survived, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}284}]:} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}285}]:} \PY{n}{x} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}船舱，年龄，性别等等，892条数据，删除小屋数据与搭乘港口数据，因为数据缺失又很难插值}
+          \PY{c+c1}{\PYZsh{}设置需要考虑的特征，查看是否具有缺失值}
+          
+          \PY{n}{x}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 8 columns):
+Pclass      891 non-null int64
+Age         891 non-null float64
+Sex         891 non-null object
+SibSp       891 non-null int64
+Parch       891 non-null int64
+Ticket      891 non-null object
+Fare        891 non-null float64
+Embarked    891 non-null object
+dtypes: float64(2), int64(3), object(3)
+memory usage: 55.8+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}286}]:} pandas.core.frame.DataFrame
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}287}]:} \PY{n}{titanic}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}287}]:} PassengerId    0
+          Survived       0
+          Pclass         0
+          Name           0
+          Sex            0
+          Age            0
+          SibSp          0
+          Parch          0
+          Ticket         0
+          Fare           0
+          Cabin          0
+          Embarked       0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}288}]:} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{titanic}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{检查数据空缺情况}\label{ux68c0ux67e5ux6570ux636eux7a7aux7f3aux60c5ux51b5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}289}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{GridSearchCV}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction} \PY{k}{import} \PY{n}{DictVectorizer}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}290}]:} \PY{n}{x} \PY{o}{=} \PY{n}{titanic}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}船舱，年龄，性别等等，892条数据，删除小屋数据与搭乘港口数据，因为数据缺失又很难插值}
+          \PY{c+c1}{\PYZsh{}设置需要考虑的特征，查看是否具有缺失值}
+          
+          \PY{n}{x}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 8 columns):
+Pclass      891 non-null int64
+Age         891 non-null float64
+Sex         891 non-null object
+SibSp       891 non-null int64
+Parch       891 non-null int64
+Ticket      891 non-null object
+Fare        891 non-null float64
+Embarked    891 non-null object
+dtypes: float64(2), int64(3), object(3)
+memory usage: 55.8+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}291}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}291}]:} pandas.core.frame.DataFrame
+\end{Verbatim}
+            
+    \subsection{独热编码}\label{ux72ecux70edux7f16ux7801}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}292}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction} \PY{k}{import} \PY{n}{DictVectorizer}  
+          \PY{n}{x\PYZus{}dict\PYZus{}list} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{records}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ train\PYZus{}dict }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{x\PYZus{}dict\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{dict\PYZus{}vec} \PY{o}{=} \PY{n}{DictVectorizer}\PY{p}{(}\PY{n}{sparse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{dict\PYZus{}vec}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x\PYZus{}dict\PYZus{}list}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ onehot编码 }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dict\PYZus{}vec}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(x[:5])}
+          \PY{c+c1}{\PYZsh{}特征抽取 \PYZhy{} onehot编码}
+            
+          \PY{c+c1}{\PYZsh{}x.head()}
+          
+          \PY{c+c1}{\PYZsh{}方便进行属性值的选择，特征投影}
+          
+          \PY{c+c1}{\PYZsh{}DictVectorizer的处理对象是符号化(非数字化)的但是具有一定结构的特征数据，如字典等，将符号转成数字0/1表示}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+****************************** train\_dict ******************************
+0    \{'Pclass': 3, 'Age': 22.0, 'Sex': 'male', 'Sib{\ldots}
+1    \{'Pclass': 1, 'Age': 38.0, 'Sex': 'female', 'S{\ldots}
+2    \{'Pclass': 3, 'Age': 26.0, 'Sex': 'female', 'S{\ldots}
+3    \{'Pclass': 1, 'Age': 35.0, 'Sex': 'female', 'S{\ldots}
+4    \{'Pclass': 3, 'Age': 35.0, 'Sex': 'male', 'Sib{\ldots}
+dtype: object
+****************************** onehot编码 ******************************
+['Age', 'Embarked=C', 'Embarked=Q', 'Embarked=S', 'Fare', 'Parch', 'Pclass', 'Sex=female', 'Sex=male', 'SibSp', 'Ticket=110152', 'Ticket=110413', 'Ticket=110465', 'Ticket=110564', 'Ticket=110813', 'Ticket=111240', 'Ticket=111320', 'Ticket=111361', 'Ticket=111369', 'Ticket=111426', 'Ticket=111427', 'Ticket=111428', 'Ticket=112050', 'Ticket=112052', 'Ticket=112053', 'Ticket=112058', 'Ticket=112059', 'Ticket=112277', 'Ticket=112379', 'Ticket=113028', 'Ticket=113043', 'Ticket=113050', 'Ticket=113051', 'Ticket=113055', 'Ticket=113056', 'Ticket=113059', 'Ticket=113501', 'Ticket=113503', 'Ticket=113505', 'Ticket=113509', 'Ticket=113510', 'Ticket=113514', 'Ticket=113572', 'Ticket=113760', 'Ticket=113767', 'Ticket=113773', 'Ticket=113776', 'Ticket=113781', 'Ticket=113783', 'Ticket=113784', 'Ticket=113786', 'Ticket=113787', 'Ticket=113788', 'Ticket=113789', 'Ticket=113792', 'Ticket=113794', 'Ticket=113796', 'Ticket=113798', 'Ticket=113800', 'Ticket=113803', 'Ticket=113804', 'Ticket=113806', 'Ticket=113807', 'Ticket=11668', 'Ticket=11751', 'Ticket=11752', 'Ticket=11753', 'Ticket=11755', 'Ticket=11765', 'Ticket=11767', 'Ticket=11769', 'Ticket=11771', 'Ticket=11774', 'Ticket=11813', 'Ticket=11967', 'Ticket=12233', 'Ticket=12460', 'Ticket=12749', 'Ticket=13049', 'Ticket=13213', 'Ticket=13214', 'Ticket=13502', 'Ticket=13507', 'Ticket=13509', 'Ticket=13567', 'Ticket=13568', 'Ticket=14311', 'Ticket=14312', 'Ticket=14313', 'Ticket=14973', 'Ticket=1601', 'Ticket=16966', 'Ticket=16988', 'Ticket=17421', 'Ticket=17453', 'Ticket=17463', 'Ticket=17464', 'Ticket=17465', 'Ticket=17466', 'Ticket=17474', 'Ticket=17764', 'Ticket=19877', 'Ticket=19928', 'Ticket=19943', 'Ticket=19947', 'Ticket=19950', 'Ticket=19952', 'Ticket=19972', 'Ticket=19988', 'Ticket=19996', 'Ticket=2003', 'Ticket=211536', 'Ticket=21440', 'Ticket=218629', 'Ticket=219533', 'Ticket=220367', 'Ticket=220845', 'Ticket=2223', 'Ticket=223596', 'Ticket=226593', 'Ticket=226875', 'Ticket=228414', 'Ticket=229236', 'Ticket=230080', 'Ticket=230136', 'Ticket=230433', 'Ticket=230434', 'Ticket=231919', 'Ticket=231945', 'Ticket=233639', 'Ticket=233866', 'Ticket=234360', 'Ticket=234604', 'Ticket=234686', 'Ticket=234818', 'Ticket=236171', 'Ticket=236852', 'Ticket=236853', 'Ticket=237442', 'Ticket=237565', 'Ticket=237668', 'Ticket=237671', 'Ticket=237736', 'Ticket=237789', 'Ticket=237798', 'Ticket=239853', 'Ticket=239854', 'Ticket=239855', 'Ticket=239856', 'Ticket=239865', 'Ticket=240929', 'Ticket=24160', 'Ticket=243847', 'Ticket=243880', 'Ticket=244252', 'Ticket=244270', 'Ticket=244278', 'Ticket=244310', 'Ticket=244358', 'Ticket=244361', 'Ticket=244367', 'Ticket=244373', 'Ticket=248698', 'Ticket=248706', 'Ticket=248723', 'Ticket=248727', 'Ticket=248731', 'Ticket=248733', 'Ticket=248738', 'Ticket=248740', 'Ticket=248747', 'Ticket=250643', 'Ticket=250644', 'Ticket=250646', 'Ticket=250647', 'Ticket=250648', 'Ticket=250649', 'Ticket=250651', 'Ticket=250652', 'Ticket=250653', 'Ticket=250655', 'Ticket=2620', 'Ticket=2623', 'Ticket=2624', 'Ticket=2625', 'Ticket=2626', 'Ticket=2627', 'Ticket=2628', 'Ticket=2629', 'Ticket=2631', 'Ticket=26360', 'Ticket=2641', 'Ticket=2647', 'Ticket=2648', 'Ticket=2649', 'Ticket=2650', 'Ticket=2651', 'Ticket=2653', 'Ticket=2659', 'Ticket=2661', 'Ticket=2662', 'Ticket=2663', 'Ticket=2664', 'Ticket=2665', 'Ticket=2666', 'Ticket=2667', 'Ticket=2668', 'Ticket=2669', 'Ticket=26707', 'Ticket=2671', 'Ticket=2672', 'Ticket=2674', 'Ticket=2677', 'Ticket=2678', 'Ticket=2680', 'Ticket=2683', 'Ticket=2685', 'Ticket=2686', 'Ticket=2687', 'Ticket=2689', 'Ticket=2690', 'Ticket=2691', 'Ticket=2693', 'Ticket=2694', 'Ticket=2695', 'Ticket=2697', 'Ticket=2699', 'Ticket=2700', 'Ticket=27042', 'Ticket=27267', 'Ticket=27849', 'Ticket=28134', 'Ticket=28206', 'Ticket=28213', 'Ticket=28220', 'Ticket=28228', 'Ticket=28403', 'Ticket=28424', 'Ticket=28425', 'Ticket=28551', 'Ticket=28664', 'Ticket=28665', 'Ticket=29011', 'Ticket=2908', 'Ticket=29103', 'Ticket=29104', 'Ticket=29105', 'Ticket=29106', 'Ticket=29108', 'Ticket=2926', 'Ticket=29750', 'Ticket=29751', 'Ticket=3101264', 'Ticket=3101265', 'Ticket=3101267', 'Ticket=3101276', 'Ticket=3101277', 'Ticket=3101278', 'Ticket=3101281', 'Ticket=3101295', 'Ticket=3101296', 'Ticket=3101298', 'Ticket=31027', 'Ticket=31028', 'Ticket=312991', 'Ticket=312992', 'Ticket=312993', 'Ticket=31418', 'Ticket=315037', 'Ticket=315082', 'Ticket=315084', 'Ticket=315086', 'Ticket=315088', 'Ticket=315089', 'Ticket=315090', 'Ticket=315093', 'Ticket=315094', 'Ticket=315096', 'Ticket=315097', 'Ticket=315098', 'Ticket=315151', 'Ticket=315153', 'Ticket=323592', 'Ticket=323951', 'Ticket=324669', 'Ticket=330877', 'Ticket=330909', 'Ticket=330919', 'Ticket=330923', 'Ticket=330931', 'Ticket=330932', 'Ticket=330935', 'Ticket=330958', 'Ticket=330959', 'Ticket=330979', 'Ticket=330980', 'Ticket=334912', 'Ticket=335097', 'Ticket=335677', 'Ticket=33638', 'Ticket=336439', 'Ticket=3411', 'Ticket=341826', 'Ticket=34218', 'Ticket=342826', 'Ticket=343095', 'Ticket=343120', 'Ticket=343275', 'Ticket=343276', 'Ticket=345364', 'Ticket=345572', 'Ticket=345763', 'Ticket=345764', 'Ticket=345765', 'Ticket=345767', 'Ticket=345769', 'Ticket=345770', 'Ticket=345773', 'Ticket=345774', 'Ticket=345777', 'Ticket=345778', 'Ticket=345779', 'Ticket=345780', 'Ticket=345781', 'Ticket=345783', 'Ticket=3460', 'Ticket=347054', 'Ticket=347060', 'Ticket=347061', 'Ticket=347062', 'Ticket=347063', 'Ticket=347064', 'Ticket=347067', 'Ticket=347068', 'Ticket=347069', 'Ticket=347071', 'Ticket=347073', 'Ticket=347074', 'Ticket=347076', 'Ticket=347077', 'Ticket=347078', 'Ticket=347080', 'Ticket=347081', 'Ticket=347082', 'Ticket=347083', 'Ticket=347085', 'Ticket=347087', 'Ticket=347088', 'Ticket=347089', 'Ticket=3474', 'Ticket=347464', 'Ticket=347466', 'Ticket=347468', 'Ticket=347470', 'Ticket=347742', 'Ticket=347743', 'Ticket=348121', 'Ticket=348123', 'Ticket=348124', 'Ticket=349201', 'Ticket=349203', 'Ticket=349204', 'Ticket=349205', 'Ticket=349206', 'Ticket=349207', 'Ticket=349208', 'Ticket=349209', 'Ticket=349210', 'Ticket=349212', 'Ticket=349213', 'Ticket=349214', 'Ticket=349215', 'Ticket=349216', 'Ticket=349217', 'Ticket=349218', 'Ticket=349219', 'Ticket=349221', 'Ticket=349222', 'Ticket=349223', 'Ticket=349224', 'Ticket=349225', 'Ticket=349227', 'Ticket=349228', 'Ticket=349231', 'Ticket=349233', 'Ticket=349234', 'Ticket=349236', 'Ticket=349237', 'Ticket=349239', 'Ticket=349240', 'Ticket=349241', 'Ticket=349242', 'Ticket=349243', 'Ticket=349244', 'Ticket=349245', 'Ticket=349246', 'Ticket=349247', 'Ticket=349248', 'Ticket=349249', 'Ticket=349251', 'Ticket=349252', 'Ticket=349253', 'Ticket=349254', 'Ticket=349256', 'Ticket=349257', 'Ticket=349909', 'Ticket=349910', 'Ticket=349912', 'Ticket=350025', 'Ticket=350026', 'Ticket=350029', 'Ticket=350034', 'Ticket=350035', 'Ticket=350036', 'Ticket=350042', 'Ticket=350043', 'Ticket=350046', 'Ticket=350047', 'Ticket=350048', 'Ticket=350050', 'Ticket=350052', 'Ticket=350060', 'Ticket=350404', 'Ticket=350406', 'Ticket=350407', 'Ticket=350417', 'Ticket=35273', 'Ticket=35281', 'Ticket=35851', 'Ticket=35852', 'Ticket=358585', 'Ticket=36209', 'Ticket=362316', 'Ticket=363291', 'Ticket=363294', 'Ticket=363592', 'Ticket=364498', 'Ticket=364499', 'Ticket=364500', 'Ticket=364506', 'Ticket=364511', 'Ticket=364512', 'Ticket=364516', 'Ticket=364846', 'Ticket=364848', 'Ticket=364849', 'Ticket=364850', 'Ticket=364851', 'Ticket=365222', 'Ticket=365226', 'Ticket=36568', 'Ticket=367226', 'Ticket=367228', 'Ticket=367229', 'Ticket=367230', 'Ticket=367231', 'Ticket=367232', 'Ticket=367655', 'Ticket=368323', 'Ticket=36864', 'Ticket=36865', 'Ticket=36866', 'Ticket=368703', 'Ticket=36928', 'Ticket=36947', 'Ticket=36963', 'Ticket=36967', 'Ticket=36973', 'Ticket=370129', 'Ticket=370365', 'Ticket=370369', 'Ticket=370370', 'Ticket=370371', 'Ticket=370372', 'Ticket=370373', 'Ticket=370375', 'Ticket=370376', 'Ticket=370377', 'Ticket=371060', 'Ticket=371110', 'Ticket=371362', 'Ticket=372622', 'Ticket=373450', 'Ticket=374746', 'Ticket=374887', 'Ticket=374910', 'Ticket=376564', 'Ticket=376566', 'Ticket=382649', 'Ticket=382651', 'Ticket=382652', 'Ticket=383121', 'Ticket=384461', 'Ticket=386525', 'Ticket=392091', 'Ticket=392092', 'Ticket=392096', 'Ticket=394140', 'Ticket=4133', 'Ticket=4134', 'Ticket=4135', 'Ticket=4136', 'Ticket=4137', 'Ticket=4138', 'Ticket=4579', 'Ticket=54636', 'Ticket=5727', 'Ticket=65303', 'Ticket=65304', 'Ticket=65306', 'Ticket=6563', 'Ticket=693', 'Ticket=695', 'Ticket=7267', 'Ticket=7534', 'Ticket=7540', 'Ticket=7545', 'Ticket=7546', 'Ticket=7552', 'Ticket=7553', 'Ticket=7598', 'Ticket=8471', 'Ticket=8475', 'Ticket=9234', 'Ticket=A./5. 2152', 'Ticket=A./5. 3235', 'Ticket=A.5. 11206', 'Ticket=A.5. 18509', 'Ticket=A/4 45380', 'Ticket=A/4 48871', 'Ticket=A/4. 20589', 'Ticket=A/4. 34244', 'Ticket=A/4. 39886', 'Ticket=A/5 21171', 'Ticket=A/5 21172', 'Ticket=A/5 21173', 'Ticket=A/5 21174', 'Ticket=A/5 2466', 'Ticket=A/5 2817', 'Ticket=A/5 3536', 'Ticket=A/5 3540', 'Ticket=A/5 3594', 'Ticket=A/5 3902', 'Ticket=A/5. 10482', 'Ticket=A/5. 13032', 'Ticket=A/5. 2151', 'Ticket=A/5. 3336', 'Ticket=A/5. 3337', 'Ticket=A/5. 851', 'Ticket=A/S 2816', 'Ticket=A4. 54510', 'Ticket=C 17369', 'Ticket=C 4001', 'Ticket=C 7075', 'Ticket=C 7076', 'Ticket=C 7077', 'Ticket=C.A. 17248', 'Ticket=C.A. 18723', 'Ticket=C.A. 2315', 'Ticket=C.A. 24579', 'Ticket=C.A. 24580', 'Ticket=C.A. 2673', 'Ticket=C.A. 29178', 'Ticket=C.A. 29395', 'Ticket=C.A. 29566', 'Ticket=C.A. 31026', 'Ticket=C.A. 31921', 'Ticket=C.A. 33111', 'Ticket=C.A. 33112', 'Ticket=C.A. 33595', 'Ticket=C.A. 34260', 'Ticket=C.A. 34651', 'Ticket=C.A. 37671', 'Ticket=C.A. 5547', 'Ticket=C.A. 6212', 'Ticket=C.A./SOTON 34068', 'Ticket=CA 2144', 'Ticket=CA. 2314', 'Ticket=CA. 2343', 'Ticket=F.C. 12750', 'Ticket=F.C.C. 13528', 'Ticket=F.C.C. 13529', 'Ticket=F.C.C. 13531', 'Ticket=Fa 265302', 'Ticket=LINE', 'Ticket=P/PP 3381', 'Ticket=PC 17318', 'Ticket=PC 17473', 'Ticket=PC 17474', 'Ticket=PC 17475', 'Ticket=PC 17476', 'Ticket=PC 17477', 'Ticket=PC 17482', 'Ticket=PC 17483', 'Ticket=PC 17485', 'Ticket=PC 17558', 'Ticket=PC 17569', 'Ticket=PC 17572', 'Ticket=PC 17582', 'Ticket=PC 17585', 'Ticket=PC 17590', 'Ticket=PC 17592', 'Ticket=PC 17593', 'Ticket=PC 17595', 'Ticket=PC 17596', 'Ticket=PC 17597', 'Ticket=PC 17599', 'Ticket=PC 17600', 'Ticket=PC 17601', 'Ticket=PC 17603', 'Ticket=PC 17604', 'Ticket=PC 17605', 'Ticket=PC 17608', 'Ticket=PC 17609', 'Ticket=PC 17610', 'Ticket=PC 17611', 'Ticket=PC 17612', 'Ticket=PC 17754', 'Ticket=PC 17755', 'Ticket=PC 17756', 'Ticket=PC 17757', 'Ticket=PC 17758', 'Ticket=PC 17759', 'Ticket=PC 17760', 'Ticket=PC 17761', 'Ticket=PP 4348', 'Ticket=PP 9549', 'Ticket=S.C./A.4. 23567', 'Ticket=S.C./PARIS 2079', 'Ticket=S.O./P.P. 3', 'Ticket=S.O./P.P. 751', 'Ticket=S.O.C. 14879', 'Ticket=S.O.P. 1166', 'Ticket=S.P. 3464', 'Ticket=S.W./PP 752', 'Ticket=SC 1748', 'Ticket=SC/AH 29037', 'Ticket=SC/AH 3085', 'Ticket=SC/AH Basle 541', 'Ticket=SC/PARIS 2131', 'Ticket=SC/PARIS 2133', 'Ticket=SC/PARIS 2146', 'Ticket=SC/PARIS 2149', 'Ticket=SC/PARIS 2167', 'Ticket=SC/Paris 2123', 'Ticket=SC/Paris 2163', 'Ticket=SCO/W 1585', 'Ticket=SO/C 14885', 'Ticket=SOTON/O.Q. 3101305', 'Ticket=SOTON/O.Q. 3101306', 'Ticket=SOTON/O.Q. 3101307', 'Ticket=SOTON/O.Q. 3101310', 'Ticket=SOTON/O.Q. 3101311', 'Ticket=SOTON/O.Q. 3101312', 'Ticket=SOTON/O.Q. 392078', 'Ticket=SOTON/O.Q. 392087', 'Ticket=SOTON/O2 3101272', 'Ticket=SOTON/O2 3101287', 'Ticket=SOTON/OQ 3101316', 'Ticket=SOTON/OQ 3101317', 'Ticket=SOTON/OQ 392076', 'Ticket=SOTON/OQ 392082', 'Ticket=SOTON/OQ 392086', 'Ticket=SOTON/OQ 392089', 'Ticket=SOTON/OQ 392090', 'Ticket=STON/O 2. 3101269', 'Ticket=STON/O 2. 3101273', 'Ticket=STON/O 2. 3101274', 'Ticket=STON/O 2. 3101275', 'Ticket=STON/O 2. 3101280', 'Ticket=STON/O 2. 3101285', 'Ticket=STON/O 2. 3101286', 'Ticket=STON/O 2. 3101288', 'Ticket=STON/O 2. 3101289', 'Ticket=STON/O 2. 3101292', 'Ticket=STON/O 2. 3101293', 'Ticket=STON/O 2. 3101294', 'Ticket=STON/O2. 3101271', 'Ticket=STON/O2. 3101279', 'Ticket=STON/O2. 3101282', 'Ticket=STON/O2. 3101283', 'Ticket=STON/O2. 3101290', 'Ticket=SW/PP 751', 'Ticket=W./C. 14258', 'Ticket=W./C. 14263', 'Ticket=W./C. 6607', 'Ticket=W./C. 6608', 'Ticket=W./C. 6609', 'Ticket=W.E.P. 5734', 'Ticket=W/C 14208', 'Ticket=WE/P 5735']
+
+    \end{Verbatim}
+
+    在建模过程中，我们通常会碰到各种类型的属性，如果是标称型属性，也就是不具备序列性、不能比较大小的属性，通常我们不能用简单的数值来粗暴替换。因为属性的数值大小会影响到权重矩阵的计算，不存在大小关系的属性，其权重也不应该发生相应的变化，那么我们就需要用到One-hot编码（也有人称独热编码）这种特殊的编码方式了。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}293}]:} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{划分训练集和测试集}\label{ux5212ux5206ux8badux7ec3ux96c6ux548cux6d4bux8bd5ux96c6}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}294}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}294}]:} pandas.core.series.Series
+\end{Verbatim}
+            
+    \subsection{划分结果后，开始进行决策树预测与随机森林的参数选择}\label{ux5212ux5206ux7ed3ux679cux540eux5f00ux59cbux8fdbux884cux51b3ux7b56ux6811ux9884ux6d4bux4e0eux968fux673aux68eeux6797ux7684ux53c2ux6570ux9009ux62e9}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{n}{dec\PYZus{}tree} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dec\PYZus{}tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ 准确率 }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dec\PYZus{}tree}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+****************************** 准确率 ******************************
+0.8156424581005587
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+          \PY{c+c1}{\PYZsh{}from sklearn.grid\PYZus{}search import GridSearchCV}
+          \PY{c+c1}{\PYZsh{}gridsearchcv自动调参}
+          
+          
+          \PY{c+c1}{\PYZsh{} n\PYZus{}jobs: \PYZhy{}1表示设置为核心数量}
+          \PY{c+c1}{\PYZsh{} n\PYZus{}estimators: 决策树数目}
+          \PY{c+c1}{\PYZsh{} max\PYZus{}depth: 树最大深度}
+          
+          \PY{n}{rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{param} \PY{o}{=} \PY{p}{\PYZob{}}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{120}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{,} \PY{l+m+mi}{1200}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}
+          \PY{p}{\PYZcb{}}
+          \PY{c+c1}{\PYZsh{} 2折交叉验证}
+          \PY{n}{search} \PY{o}{=} \PY{n}{sklearn}\PY{o}{.}\PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{rf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ 超参数网格搜索 }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}
+          
+          \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+          \PY{n}{search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{耗时：}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{最优参数：}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ 准确率 }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{30}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+****************************** 超参数网格搜索 ******************************
+耗时：125.43527293205261
+最优参数：\{'max\_depth': 30, 'n\_estimators': 300\}
+****************************** 准确率 ******************************
+0.8212290502793296
+
+    \end{Verbatim}
+
+    \subsection{1
+超参数网格搜索的最优参数}\label{ux8d85ux53c2ux6570ux7f51ux683cux641cux7d22ux7684ux6700ux4f18ux53c2ux6570}
+
+\section{2
+在2，8划分的测试数据集中，准确率达到了82\%}\label{ux572828ux5212ux5206ux7684ux6d4bux8bd5ux6570ux636eux96c6ux4e2dux51c6ux786eux7387ux8fbeux5230ux4e8682}
+
+\section{3
+相较于单个决策树的78\%准确率有了较大提升}\label{ux76f8ux8f83ux4e8eux5355ux4e2aux51b3ux7b56ux6811ux768478ux51c6ux786eux7387ux6709ux4e86ux8f83ux5927ux63d0ux5347}
+
+\section{4
+下面进行数据可视化的一些工作}\label{ux4e0bux9762ux8fdbux884cux6570ux636eux53efux89c6ux5316ux7684ux4e00ux4e9bux5de5ux4f5c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}296}]:} \PY{c+c1}{\PYZsh{}数据的一些可视化操作}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{titanic}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{diag\PYZus{}kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{auto}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}nonparametric\textbackslash{}kde.py:488: RuntimeWarning: invalid value encountered in true\_divide
+  binned = fast\_linbin(X, a, b, gridsize) / (delta * nobs)
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}nonparametric\textbackslash{}kdetools.py:34: RuntimeWarning: invalid value encountered in double\_scalars
+  FAC1 = 2*(np.pi*bw/RANGE)**2
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}fromnumeric.py:83: RuntimeWarning: invalid value encountered in reduce
+  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}296}]:} <seaborn.axisgrid.PairGrid at 0x1e91ef15e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{生成7个属性的对比属性图}\label{ux751fux62107ux4e2aux5c5eux6027ux7684ux5bf9ux6bd4ux5c5eux6027ux56fe}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}297}]:}     \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pclass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Purples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}297}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e9209cdeb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}298}]:}     \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{y} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pastel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{titanic}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}298}]:} <seaborn.axisgrid.FacetGrid at 0x1e91eee5ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}299}]:} \PY{n}{facet} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{titanic}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{facet}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{shade}\PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{facet}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}\PY{p}{)}
+          \PY{n}{facet}\PY{o}{.}\PY{n}{add\PYZus{}legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}299}]:} <seaborn.axisgrid.FacetGrid at 0x1e92111d588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{票价与生存率关系}\label{ux7968ux4ef7ux4e0eux751fux5b58ux7387ux5173ux7cfb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:}     \PY{c+c1}{\PYZsh{}不同舱位的生存情况}
+          
+          \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pclass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Greens}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}300}]:} <seaborn.axisgrid.FacetGrid at 0x1e921139a90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}301}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{titanic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}301}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e921229f98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{进行年龄的distplot展示}\label{ux8fdbux884cux5e74ux9f84ux7684distplotux5c55ux793a}
+
+直方图又称质量分布图，它是表示资料变化情况的一种主要工具。用直方图可以解析出资料的规则性，比较直观地看出产品质量特性的分布状态，对于资料分布状况一目了然，便于判断其总体质量分布情况。直方图表示通过沿数据范围形成分箱，然后绘制条以显示落入每个分箱的观测次数的数据分布。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}302}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}302}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e921229be0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{展示携带家庭成员的生存概率}\label{ux5c55ux793aux643aux5e26ux5bb6ux5eadux6210ux5458ux7684ux751fux5b58ux6982ux7387}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SibSp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{titanic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}257}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1e91b0cc2e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{不同兄弟姐妹个数的生存概率}\label{ux4e0dux540cux5144ux5f1fux59d0ux59b9ux4e2aux6570ux7684ux751fux5b58ux6982ux7387}
+
+展示
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}303}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Embarked}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=} \PY{n}{titanic}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                      \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Set3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                      \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{violin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}303}]:} <seaborn.axisgrid.FacetGrid at 0x1e9212ebcf8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}304}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.} \PY{n}{pipeline} \PY{k+kn}{import} \PY{n+nn}{make\PYZus{}pipeline}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.} \PY{n}{pipeline} \PY{k+kn}{import} \PY{n+nn}{Pipeline} 
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier} 
+          \PY{c+c1}{\PYZsh{}from sklearn.model\PYZus{}selection import GridsearchCV }
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}305}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}
+          \PY{n}{select} \PY{o}{=} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{warm\PYZus{}start} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} 
+                                            \PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{300}\PY{p}{,}
+                                            \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} 
+                                            \PY{n}{max\PYZus{}features} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pipeline} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{select}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{训练过程}\label{ux8badux7ec3ux8fc7ux7a0b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}306}]:} \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}feature\_selection\textbackslash{}univariate\_selection.py:114: UserWarning: Features [ 10  11  12  14  15  16  19  20  22  23  24  25  27  28  29  30  31  32
+  33  34  35  36  37  38  40  41  42  43  44  46  48  49  51  52  54  55
+  56  58  60  61  63  66  67  68  70  71  73  75  76  77  78  80  81  82
+  83  85  86  87  88  89  96  98  99 100 103 104 106 107 108 109 110 111
+ 112 113 114 116 117 119 120 122 124 125 126 129 130 131 132 133 134 136
+ 137 138 139 140 141 144 145 146 147 148 149 150 151 152 153 155 157 158
+ 159 160 162 163 164 165 166 168 169 170 171 172 173 174 175 177 178 179
+ 181 182 183 184 185 188 190 191 192 193 194 195 196 197 198 199 200 201
+ 202 203 205 206 207 208 210 212 213 214 215 216 217 218 219 220 221 222
+ 223 224 225 226 227 228 229 231 232 233 234 235 237 238 239 240 241 244
+ 245 246 247 248 249 250 252 253 254 255 256 257 258 260 261 263 264 265
+ 267 269 270 271 272 273 274 275 276 277 278 279 280 282 283 284 285 286
+ 287 288 290 291 293 295 296 297 298 299 301 302 303 304 305 306 307 308
+ 309 310 311 313 314 317 319 320 321 322 323 324 325 326 327 328 330 331
+ 332 334 335 337 338 340 342 344 345 346 349 352 353 354 355 356 357 358
+ 359 360 361 362 363 364 366 367 369 370 371 373 374 375 376 377 378 379
+ 382 384 386 387 388 389 390 392 393 395 396 397 398 399 400 402 403 404
+ 405 406 407 408 410 411 413 414 415 416 417 418 419 420 421 422 423 425
+ 426 428 429 430 431 432 433 434 435 436 438 439 440 441 442 443 444 446
+ 447 448 449 450 451 452 453 454 455 457 458 459 461 462 463 464 465 473
+ 475 476 478 480 481 482 483 484 485 486 487 488 489 490 491 492 494 495
+ 496 499 501 502 503 504 505 507 508 509 510 511 513 514 515 516 518 520
+ 521 522 523 525 526 527 528 529 530 531 532 533 534 537 539 541 542 545
+ 546 548 549 550 551 552 553 554 555 556 557 560 562 564 565 566 568 569
+ 570 571 572 573 574 575 577 579 580 582 584 585 586 587 588 590 592 594
+ 595 600 601 603 605 607 608 609 611 613 615 616 617 618 619 622 623 624
+ 625 626 628 629 630 632 633 634 635 637 638 640 641 642 643 645 646 647
+ 648 650 651 652 653 654 656 658 659 660 661 662 663 664 665 666 667 668
+ 670 671 672 673 674 675 676 677 678 680 681 685 687 688 689 690] are constant.
+  UserWarning)
+g:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}feature\_selection\textbackslash{}univariate\_selection.py:115: RuntimeWarning: invalid value encountered in true\_divide
+  f = msb / msw
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}306}]:} Pipeline(memory=None,
+               steps=[('selectkbest', SelectKBest(k=20, score\_func=<function f\_classif at 0x000001E90D593488>)), ('randomforestclassifier', RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+                      max\_depth=30, max\_features='sqrt', max\_leaf\_nodes=None,
+                      min\_impurity\_decrea{\ldots}mators=300, n\_jobs=None,
+                      oob\_score=False, random\_state=10, verbose=0, warm\_start=True))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}309}]:} \PY{n}{x}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}309}]:} array([[22.        ,  0.        ,  0.        , {\ldots},  0.        ,
+                   0.        ,  0.        ],
+                 [38.        ,  1.        ,  0.        , {\ldots},  0.        ,
+                   0.        ,  0.        ],
+                 [26.        ,  0.        ,  0.        , {\ldots},  0.        ,
+                   0.        ,  0.        ],
+                 {\ldots},
+                 [29.69911765,  0.        ,  0.        , {\ldots},  0.        ,
+                   0.        ,  0.        ],
+                 [26.        ,  1.        ,  0.        , {\ldots},  0.        ,
+                   0.        ,  0.        ],
+                 [32.        ,  0.        ,  1.        , {\ldots},  0.        ,
+                   0.        ,  0.        ]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}310}]:} \PY{n}{predictions} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{submission} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{predictions}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{submission}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{对train.csv所有数据进行预测，并输出为submission文件}\label{ux5bf9train.csvux6240ux6709ux6570ux636eux8fdbux884cux9884ux6d4bux5e76ux8f93ux51faux4e3asubmissionux6587ux4ef6}
+
+对比与原数据预测的准确率
+
+统计结果为150个数据预测失败
+
+741个数据预测成功
+
+\subsection{百分比}\label{ux767eux5206ux6bd4}
+
+    \[
+\begin{align}
+\alpha =\frac{150}{891}=0.8318
+\end{align}
+\]
+
+    Pipeline可以将许多算法模型串联起来，可以用于把多个estamitors级联成一个estamitor,比如将特征提取、归一化、分类组织在一起形成一个典型的机器学习问题工作流。Pipleline中最后一个之外的所有estimators都必须是变换器（transformers），最后一个estimator可以是任意类型（transformer，classifier，regresser）,如果最后一个estimator是个分类器，则整个pipeline就可以作为分类器使用，如果最后一个estimator是个聚类器，则整个pipeline就可以作为聚类器使用。
+
+\begin{verbatim}
+    主要带来两点好处：
+
+    1.直接调用fit和predict方法来对pipeline中的所有算法模型进行训练和预测。
+
+    2.可以结合grid search对参数进行选择.
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
